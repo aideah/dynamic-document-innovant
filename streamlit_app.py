@@ -11,6 +11,7 @@ from langchain.chains import ConversationalRetrievalChain, LLMChain
 from langchain.prompts import PromptTemplate
 from htmlTemplates import css, bot_template, user_template, bot_template_content
  
+
 def get_pdf_text(pdf_docs):
     text = []
     for pdf in pdf_docs:
