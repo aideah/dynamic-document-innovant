@@ -80,7 +80,7 @@ def handle_userinput(user_question):
     if st.session_state.conversation is None:
         st.warning("Please upload and process your PDFs first.")
         return
-    
+
     retriever = st.session_state.conversation.retriever
     retriever_results = retriever.get_relevant_documents(user_question)
     if retriever_results:
@@ -92,20 +92,23 @@ def handle_userinput(user_question):
                     Excerpt- {doc.page_content[:100]}..."""
     else:
         st.write("No documents retrieved by the retriever.")
-    
+
+    # Get the response for the current user question
     response = st.session_state.conversation({'question': user_question})
-    st.session_state.chat_history = response['chat_history']
- 
-    st.subheader("Contextual Response:")
-    for i, message in enumerate(st.session_state.chat_history):
-        if i % 2 == 0:
-            st.write(user_template.replace("{{MSG}}", "USER MESSAGE : " + message.content), unsafe_allow_html=True)
-        else:
-            st.write(bot_template.replace("{{MSG}}", "Innovant Dynamic Document generator response : " + message.content), unsafe_allow_html=True)
-            st.write(bot_template_content.replace("{{MSG}}", "Reference : " + s), unsafe_allow_html=True)
+    
+    # Keep only the latest message from both user and bot
+    latest_user_message = user_question
+    latest_bot_response = response['chat_history'][-1].content if response['chat_history'] else "No response generated."
+
+    # Display the latest messages
+    st.subheader("Latest Response:")
+    st.write(user_template.replace("{{MSG}}", "<b style='font-size:30px;'>USER MESSAGE : </b>" + latest_user_message), unsafe_allow_html=True)
+    st.write(bot_template.replace("{{MSG}}", "<b style='font-size:30px;'>Innovant Dynamic Document generator response : </b>" + latest_bot_response), unsafe_allow_html=True)
+    st.write(bot_template_content.replace("{{MSG}}", "<b style='font-size:30px;'>Reference : </b>" + s), unsafe_allow_html=True)
+   
     generic_response = get_generic_llm_response(user_question)
-    st.write(bot_template.replace("{{MSG}}", "Open ai response : " + generic_response), unsafe_allow_html=True)
- 
+    st.write(bot_template.replace("{{MSG}}", "<b style='font-size:30px;'>Open ai response : </b>" + generic_response), unsafe_allow_html=True)
+
  
  
 def main():
