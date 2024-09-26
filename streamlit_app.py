@@ -102,12 +102,12 @@ def handle_userinput(user_question):
 
     # Display the latest messages
     st.subheader("Latest Response:")
-    st.write(user_template.replace("{{MSG}}", "<b style='font-size:30px;'>USER MESSAGE : </b>" + latest_user_message), unsafe_allow_html=True)
-    st.write(bot_template.replace("{{MSG}}", "<b style='font-size:30px;'>Innovant Dynamic Document generator response : </b>" + latest_bot_response), unsafe_allow_html=True)
-    st.write(bot_template_content.replace("{{MSG}}", "<b style='font-size:30px;'>Reference : </b>" + s), unsafe_allow_html=True)
+    st.write(user_template.replace("{{MSG}}", "<b style='font-size:20px;'>USER MESSAGE : </b>" + latest_user_message), unsafe_allow_html=True)
+    st.write(bot_template.replace("{{MSG}}", "<b style='font-size:20px;'>Innovant Dynamic Document generator response : </b>" + latest_bot_response), unsafe_allow_html=True)
+    st.write(bot_template_content.replace("{{MSG}}", "<b style='font-size:20px;'>Reference : </b>" + s), unsafe_allow_html=True)
    
     generic_response = get_generic_llm_response(user_question)
-    st.write(bot_template.replace("{{MSG}}", "<b style='font-size:30px;'>Open ai response : </b>" + generic_response), unsafe_allow_html=True)
+    st.write(bot_template.replace("{{MSG}}", "<b style='font-size:20px;'>Open ai response : </b>" + generic_response), unsafe_allow_html=True)
 
  
  
